@@ -1,13 +1,49 @@
-make	构建(生成的二进制文件为bin/addCopyright)
-make install	安装到/bin(需要root用户)
-make uninstall	从/bin卸载(需要root用户)
-make test	创建测试文件并进行测试
-make clean	清除所有生成文件
-make addCopyright	给该项目的源文件增加版权信息
+已在Ubuntu16.04测试，理论上可以在任何有gcc和make的平台编译运行。
 
-关于程序的使用，请编译后执行
+依赖：gcc,make
+介绍链接：http://www.dreamoftime0.com/2018/08/30/addcopyright-添加版权信息的命令行工具/
+
+目录结构：
+addCopyright
+
+├── addCopyright.cpp    int addCopyright函数的定义位置
+├── addCopyright.hpp
+├── default    默认的版权信息文件
+├── main.cpp    命令行工具的主函数入口
+├── makefile    make构建文件
+└── README    介绍文件
+
+介绍：
+主要定义的make构建命令介绍：
+make构建（生成的二进制文件为bin / addCopyright）
+make install安装到/ bin（需要root用户）
+make uninstall从/ bin卸载（需要root用户）
+make test创建测试文件并进行测试
+make clean清除所有生成文件
+make addCopyright给该项目的源文件增加版权信息
+工具帮助：
 bin/addCopyright -h
-查看
-或安装后执行
-addCopyright -h
-查看。
+用法：addCopyright [选项]... [文件]... 
+    -c	版权文件路径，如果无法打开，直接退出
+    -h	打印帮助并退出
+    -v	打印版本信息并退出
+简单的测试(对应make test中的命令)：
+make #首先构建二进制文件addCopyright
+echo "there is code.file1." > test1.hpp #创建test1.hpp和test2.hpp
+echo "there is code.file2." > test2.hpp
+echo "/*copyright*/" > copyright.txt #创建copyright.txt版权信息文件
+bin/addCopyright test1.hpp test2.hpp -c copyright.txt #对test1.hpp和test2.hpp添加版权信息
+cat copyright.txt #显示文件的信息
+
+cat test1.hpp
+
+cat test2.hpp
+推荐使用方案：
+在makefile里添加一个为指定文件增加版权信息的命令。
+
+SRCS    = $(wildcard *.cpp)
+HEADS	= $(wildcard *.hpp)
+...
+
+addCopyright:
+    addCopyright $(SRCS) $(HEADS) -c default
