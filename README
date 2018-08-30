@@ -1,0 +1,13 @@
+make	构建(生成的二进制文件为bin/addCopyright)
+make install	安装到/bin(需要root用户)
+make uninstall	从/bin卸载(需要root用户)
+make test	创建测试文件并进行测试
+make clean	清除所有生成文件
+make addCopyright	给该项目的源文件增加版权信息
+
+关于程序的使用，请编译后执行
+bin/addCopyright -h
+查看
+或安装后执行
+addCopyright -h
+查看。
