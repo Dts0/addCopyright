@@ -1,0 +1,1 @@
+g++ -Wall -std=c++11 addCopyright.cpp main.cpp -fexec-charset=GBK -finput-charset=UTF-8 -o addCopyright.exe
